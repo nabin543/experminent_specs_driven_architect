@@ -36,7 +36,7 @@ The HTML file is the final deliverable — a zero-dependency, self-contained pre
 
 ### Component 1: HTML Quiz Interface
 
-**File**: `question_Set.html`
+**File**: `educational-prep-exam-genai-pro.html`
 
 **Purpose**: Render an interactive quiz from the question data
 
@@ -49,40 +49,40 @@ The HTML file is the final deliverable — a zero-dependency, self-contained pre
     <style>/* Embedded CSS */</style>
 </head>
 <body>
-    <header class="fixed-header">
-        <h1>Educational content generation powered by Kiro</h1>
-        <p>85 Questions | Select answers and click Validate to check</p>
-        <div class="header-info-row">
-            <div class="header-timer">
-                <span class="timer-icon">⏱</span>
-                <span id="countdownTimer">205:00</span>
-            </div>
-            <div class="header-score-counter">
-                <span class="correct-count">Correct: 0</span>
-                <span class="incorrect-count">Incorrect: 0</span>
-                <span class="total-validated">Validated: 0/85</span>
-            </div>
+<header class="fixed-header">
+    <h1>Educational content generation powered by Kiro</h1>
+    <p>85 Questions | Select answers and click Validate to check</p>
+    <div class="header-info-row">
+        <div class="header-timer">
+            <span class="timer-icon">⏱</span>
+            <span id="countdownTimer">205:00</span>
         </div>
-        <p class="disclaimer">This prep exam is for educational and practice purposes only.
+        <div class="header-score-counter">
+            <span class="correct-count">Correct: 0</span>
+            <span class="incorrect-count">Incorrect: 0</span>
+            <span class="total-validated">Validated: 0/85</span>
+        </div>
+    </div>
+    <p class="disclaimer">This prep exam is for educational and practice purposes only.
         It does not replace or supplement official AWS Training & Certification materials.</p>
-    </header>
-    <main>
-        <!-- 85 Question Components -->
-    </main>
-    <script>/* Embedded JavaScript */</script>
+</header>
+<main>
+    <!-- 85 Question Components -->
+</main>
+<script>/* Embedded JavaScript */</script>
 </body>
 </html>
 ```
 
 ### Component 2: Fixed Header
 
-**Purpose**: Consolidate exam title, countdown timer, score counter, and disclaimer into a single fixed-position header that remains visible while scrolling.
+**Purpose**: Modern, organized header with improved visual hierarchy and better mobile responsiveness.
 
 **Contains**:
-- Exam title and subtitle
-- Countdown Timer (205 minutes, starts on first Validate click)
-- Score Counter (correct/incorrect/validated counts)
-- Educational disclaimer text
+- Exam title with modern typography
+- Countdown Timer with enhanced visual design
+- Score Counter with card-like styling
+- Educational disclaimer with better formatting
 
 **CSS**:
 ```css
@@ -92,24 +92,80 @@ The HTML file is the final deliverable — a zero-dependency, self-contained pre
     left: 0;
     right: 0;
     z-index: 1000;
-    text-align: center;
-    padding: 15px 20px;
-    background: linear-gradient(135deg, #232f3e 0%, #37475a 100%);
+    background: linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #1a202c 100%);
     color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.header-info-row {
-    display: flex;
-    justify-content: center;
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(45deg, #ffd700, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 16px;
+    font-weight: 400;
+}
+
+.header-stats {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
     align-items: center;
-    gap: 40px;
-    margin: 8px 0;
-    flex-wrap: wrap;
+    margin: 16px 0;
+}
+
+.timer-card, .score-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 20px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 6px;
+    border-left: 3px solid #ffd700;
 }
 
 main {
-    padding-top: 220px; /* Offset for fixed header height */
+    padding-top: 240px; /* Increased offset for larger header */
+}
+
+@media (max-width: 768px) {
+    .header-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        text-align: center;
+    }
+    
+    .header-title {
+        font-size: 1.4rem;
+    }
+    
+    main {
+        padding-top: 280px;
+    }
 }
 ```
 
@@ -170,36 +226,52 @@ The `startTimer()` function is called at the beginning of `validateQuestion()`. 
 
 ### Component 5: Question Component (HTML Pattern)
 
-**Purpose**: Reusable HTML structure for each question.
+**Purpose**: Modern, accessible question layout with improved visual hierarchy.
 
 ```html
-<div class="question" data-question="1" data-type="single" data-correct="A">
+<div class="question-card" data-question="1" data-type="single" data-correct="A">
     <div class="question-header">
-        <span class="question-number">Question 1</span>
-        <span class="question-topic">Topic: Amazon Bedrock</span>
-    </div>
-    <div class="question-text"><p>Question text goes here...</p></div>
-    <div class="options">
-        <div class="option" data-option="A">
-            <span class="option-letter">A)</span>
-            <span class="option-text">Option A text</span>
-            <div class="justification hidden">
-                <strong>Incorrect</strong> - Explanation here...
-            </div>
+        <div class="question-meta">
+            <span class="question-number">Question 1</span>
+            <span class="question-topic">Topic: Amazon Bedrock</span>
         </div>
-        <!-- Options B, C, D... -->
+        <div class="question-type-badge">Single Select</div>
     </div>
-    <button class="validate-btn" onclick="validateQuestion(1)">Validate</button>
+    <div class="question-content">
+        <div class="question-text">
+            <p>Question text goes here...</p>
+        </div>
+        <div class="options-container">
+            <div class="option-card" data-option="A">
+                <div class="option-header">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Option A text</span>
+                </div>
+                <div class="justification hidden">
+                    <div class="justification-content">
+                        <strong class="result-label">Incorrect</strong>
+                        <span class="explanation">Explanation here...</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Options B, C, D... -->
+        </div>
+        <button class="validate-button" onclick="validateQuestion(1)">
+            <span class="button-text">Validate Answer</span>
+            <span class="button-icon">✓</span>
+        </button>
+    </div>
 </div>
 ```
 
-**CSS Classes**:
-- `.question` — Container for each question
-- `.option.selected` — User-selected option
-- `.option.correct` — Correct answer (shown after validation, green)
-- `.option.incorrect` — Incorrect selected answer (shown after validation, red)
-- `.justification` — Explanation text (hidden until validation)
-- `.validate-btn` — Validation button
+**Enhanced CSS Classes**:
+- `.question-card` — Modern card-based question container
+- `.option-card` — Individual option with hover effects
+- `.option-card.selected` — Selected state with animation
+- `.option-card.validated.correct` — Correct answer styling
+- `.option-card.validated.incorrect` — Incorrect answer styling
+- `.validate-button` — Modern button with hover effects
+- `.justification` — Enhanced explanation styling
 
 ## Data Models
 
