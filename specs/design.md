@@ -36,7 +36,7 @@ The HTML file is the final deliverable — a zero-dependency, self-contained pre
 
 ### Component 1: HTML Quiz Interface
 
-**File**: `educational-prep-exam-genai-pro.html`
+**File**: `question_Set.html`
 
 **Purpose**: Render an interactive quiz from the question data
 
